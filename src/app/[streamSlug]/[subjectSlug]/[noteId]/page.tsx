@@ -1,11 +1,10 @@
 import { notFound } from 'next/navigation';
-import { getNoteById, getBreadcrumbs, getPopularNotes } from '@/lib/data';
+import { getNoteById, getBreadcrumbs } from '@/lib/data';
 import Breadcrumb from '@/components/layout/breadcrumb';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Download, FileText, Film, FileType2 } from 'lucide-react';
 import type { Note } from '@/lib/types';
-import Recommendations from '@/components/notes/recommendations';
 
 type NotePageProps = {
   params: {
@@ -45,7 +44,6 @@ export default async function NotePage({ params }: NotePageProps) {
   }
 
   const breadcrumbs = await getBreadcrumbs('note', params.noteId);
-  const popularNotes = await getPopularNotes();
 
   return (
     <div className="container mx-auto px-4 py-8 md:py-12">
@@ -92,10 +90,6 @@ export default async function NotePage({ params }: NotePageProps) {
         </div>
       </div>
       
-      <div className="mt-12 md:mt-16">
-        <Recommendations currentNote={note} popularNotes={popularNotes} />
-      </div>
-
     </div>
   );
 }
