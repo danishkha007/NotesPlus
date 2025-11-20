@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookOpen } from "lucide-react";
+import Breadcrumb from "@/components/layout/breadcrumb";
+import { getBreadcrumbs } from "@/lib/data";
+
 
 const GoogleIcon = () => (
   <svg className="mr-2 h-4 w-4" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
@@ -12,24 +15,28 @@ const GoogleIcon = () => (
 );
 
 
-export default function LoginPage() {
+export default async function LoginPage() {
+    const breadcrumbs = await getBreadcrumbs("page", "Login");
   return (
-    <div className="flex items-center justify-center min-h-[calc(100vh-14rem)] py-12 px-4">
-      <Card className="w-full max-w-sm">
-        <CardHeader className="text-center">
-          <div className="flex justify-center items-center mb-4">
-            <BookOpen className="h-8 w-8 text-primary" />
-          </div>
-          <CardTitle className="font-headline text-2xl">Welcome to NotesPlus</CardTitle>
-          <CardDescription>Sign in to download notes and more.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Button className="w-full bg-white text-gray-700 hover:bg-gray-100 border border-gray-300">
-            <GoogleIcon />
-            Sign in with Google
-          </Button>
-        </CardContent>
-      </Card>
+    <div className="container mx-auto px-4 py-8 md:py-12">
+        <Breadcrumb items={breadcrumbs} className="mb-6" />
+        <div className="flex items-center justify-center">
+            <Card className="w-full max-w-sm">
+                <CardHeader className="text-center">
+                <div className="flex justify-center items-center mb-4">
+                    <BookOpen className="h-8 w-8 text-primary" />
+                </div>
+                <CardTitle className="font-headline text-2xl">Welcome to NotesPlus</CardTitle>
+                <CardDescription>Sign in to download notes and more.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                <Button className="w-full bg-white text-gray-700 hover:bg-gray-100 border border-gray-300">
+                    <GoogleIcon />
+                    Sign in with Google
+                </Button>
+                </CardContent>
+            </Card>
+        </div>
     </div>
   );
 }

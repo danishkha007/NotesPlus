@@ -1,7 +1,8 @@
-import { getStreams, getSubjects } from "@/lib/data";
+import { getStreams, getSubjects, getBreadcrumbs } from "@/lib/data";
 import { NoteForm } from "@/components/admin/note-form";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import Breadcrumb from "@/components/layout/breadcrumb";
 
 export const metadata = {
   title: "Admin Dashboard",
@@ -11,9 +12,11 @@ export const metadata = {
 export default async function AdminPage() {
   const streams = await getStreams();
   const allSubjects = await Promise.all(streams.map(stream => getSubjectsByStream(stream.id))).then(res => res.flat());
+  const breadcrumbs = await getBreadcrumbs("page", "Admin");
 
   return (
     <div className="container mx-auto px-4 py-8 md:py-12">
+       <Breadcrumb items={breadcrumbs} className="mb-6" />
       <h1 className="text-3xl md:text-4xl font-headline font-bold mb-2">Admin Dashboard</h1>
       <p className="text-lg text-muted-foreground mb-8">
         Welcome, Admin. Here you can manage the content of NotesPlus.

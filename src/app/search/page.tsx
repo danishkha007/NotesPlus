@@ -1,7 +1,8 @@
 import { Suspense } from 'react';
-import { searchNotes } from '@/lib/data';
+import { getBreadcrumbs, searchNotes } from '@/lib/data';
 import NoteCard from '@/components/note-card';
 import { Skeleton } from '@/components/ui/skeleton';
+import Breadcrumb from '@/components/layout/breadcrumb';
 
 type SearchPageProps = {
   searchParams?: {
@@ -48,11 +49,13 @@ async function SearchResults({ query }: { query: string }) {
   );
 }
 
-export default function SearchPage({ searchParams }: SearchPageProps) {
+export default async function SearchPage({ searchParams }: SearchPageProps) {
   const query = searchParams?.q || '';
+  const breadcrumbs = await getBreadcrumbs("page", `Search${query ? `: ${query}` : ''}`);
 
   return (
     <div className="container mx-auto px-4 py-8 md:py-12">
+      <Breadcrumb items={breadcrumbs} className="mb-8" />
       <h1 className="text-3xl md:text-4xl font-headline font-bold mb-8">
         Search Results
         {query && <span className="text-primary">: "{query}"</span>}

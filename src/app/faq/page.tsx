@@ -4,6 +4,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Breadcrumb from "@/components/layout/breadcrumb";
+import { getBreadcrumbs } from "@/lib/data";
 
 export const metadata = {
   title: "Frequently Asked Questions",
@@ -33,9 +35,12 @@ const faqs = [
     }
 ]
 
-export default function FAQPage() {
+export default async function FAQPage() {
+  const breadcrumbs = await getBreadcrumbs("page", "FAQ");
+
   return (
     <div className="container mx-auto px-4 py-8 md:py-12">
+      <Breadcrumb items={breadcrumbs} className="mb-6" />
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-headline font-bold text-center mb-4">
           Frequently Asked Questions

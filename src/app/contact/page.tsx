@@ -4,15 +4,19 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Mail, MessageSquare, User } from "lucide-react";
+import Breadcrumb from "@/components/layout/breadcrumb";
+import { getBreadcrumbs } from "@/lib/data";
 
 export const metadata = {
   title: "Contact Us",
   description: "Get in touch with the NotesPlus team.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const breadcrumbs = await getBreadcrumbs("page", "Contact Us");
   return (
     <div className="container mx-auto px-4 py-8 md:py-12">
+      <Breadcrumb items={breadcrumbs} className="mb-6" />
       <div className="max-w-2xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-headline font-bold text-center mb-4">
           Contact Us

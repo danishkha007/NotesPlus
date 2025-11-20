@@ -5,7 +5,6 @@ import { Badge } from '@/components/ui/badge';
 import type { Note } from '@/lib/types';
 import { Download, FileText, Film, FileType2 } from 'lucide-react';
 import { placeholderImages } from '@/lib/placeholder-images';
-import { getStreamBySlug, getSubjectBySlug } from '@/lib/data';
 
 type NoteCardProps = {
   note: Note;
@@ -24,11 +23,9 @@ const FileTypeIcon = ({ type }: { type: Note['fileType'] }) => {
   }
 };
 
-export default async function NoteCard({ note }: NoteCardProps) {
-  const stream = await getStreamBySlug(note.streamSlug || '');
-  const subject = await getSubjectBySlug(note.subjectSlug || '');
+export default function NoteCard({ note }: NoteCardProps) {
   
-  if (!stream || !subject) {
+  if (!note.streamSlug || !note.subjectSlug) {
     // In a real app, you might want to handle this case more gracefully
     return null;
   }
@@ -36,7 +33,7 @@ export default async function NoteCard({ note }: NoteCardProps) {
   const noteImage = placeholderImages.find(p => p.id === `note-${note.fileType}`) || placeholderImages.find(p => p.id === 'note-default');
 
   return (
-    <Link href={`/${stream.slug}/${subject.slug}/${note.id}`} className="block group">
+    <Link href={`/${note.streamSlug}/${note.subjectSlug}/${note.id}`} className="block group">
       <Card className="h-full flex flex-col transition-all duration-300 transform hover:shadow-xl hover:-translate-y-1 hover:border-primary">
         <CardHeader>
            <div className="flex justify-between items-start">

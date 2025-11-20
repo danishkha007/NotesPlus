@@ -1,14 +1,20 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookCopy, Lightbulb, Users } from "lucide-react";
+import Breadcrumb from "@/components/layout/breadcrumb";
+import { getBreadcrumbs } from "@/lib/data";
+
 
 export const metadata = {
   title: "About Us",
   description: "Learn more about NotesPlus and our mission.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const breadcrumbs = await getBreadcrumbs("page", "About Us");
+
   return (
     <div className="container mx-auto px-4 py-8 md:py-12">
+      <Breadcrumb items={breadcrumbs} className="mb-6" />
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-headline font-bold text-center mb-4">
           About NotesPlus
