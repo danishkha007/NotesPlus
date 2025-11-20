@@ -61,8 +61,8 @@ export default async function Home() {
             {streams.map((stream) => (
               <Link href={`/${stream.slug}`} key={stream.id} className="group">
                 <Card className="h-full flex flex-col items-center text-center p-6 transition-all duration-300 transform hover:shadow-2xl hover:-translate-y-2 border-2 border-transparent hover:border-primary">
-                  <CardHeader className="p-0">
-                    <div className="mb-4 bg-primary/10 p-4 rounded-full inline-block">
+                  <CardHeader className="p-0 flex flex-col items-center">
+                    <div className="mb-4 bg-primary/10 p-4 rounded-full flex items-center justify-center">
                         {streamIcons[stream.slug] || <Cog className="h-12 w-12 text-primary" />}
                     </div>
                     <CardTitle className="font-headline text-2xl">{stream.name}</CardTitle>
