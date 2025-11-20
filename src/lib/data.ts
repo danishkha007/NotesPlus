@@ -42,6 +42,10 @@ export const getSubjectsByStream = async (streamId: string): Promise<Subject[]> 
   return Promise.resolve(subjects.filter((s) => s.streamId === streamId));
 };
 
+export const getSubjectById = async (id: string): Promise<Subject | undefined> => {
+  return Promise.resolve(subjects.find((s) => s.id === id));
+};
+
 export const getSubjectBySlug = async (slug: string): Promise<Subject | undefined> => {
   return Promise.resolve(subjects.find((s) => s.slug === slug));
 };
@@ -93,21 +97,21 @@ export const searchNotes = async (query: string): Promise<Note[]> => {
   return Promise.resolve(detailedNotes.filter((n): n is Note => n !== undefined));
 };
 
-export const getBreadcrumbs = async (type: 'stream' | 'subject' | 'note' | 'page', slugOrName: string): Promise<BreadcrumbItem[]> => {
+export const getBreadcrumbs = async (type: 'stream' | 'subject' | 'note' | 'page', slugOrId: string): Promise<BreadcrumbItem[]> => {
   const home: BreadcrumbItem = { name: 'Home', href: '/' };
   let items: BreadcrumbItem[] = [home];
 
   if (type === 'stream') {
-    const stream = await getStreamBySlug(slugOrName);
+    const stream = await getStreamBySlug(slugOrId);
     if (stream) {
       items.push({ name: stream.name });
     }
   }
 
   if (type === 'subject') {
-    const subject = await getSubjectBySlug(slugOrName);
+    const subject = await getSubjectBySlug(slugOrId);
     if (subject) {
-      const stream = await getStreamBySlug(subjects.find(s => s.id === subject.id)?.streamId || '');
+      const stream = await getStreams().then(streams => streams.find(s => s.id === subject.streamId));
       if (stream) {
         items.push({ name: stream.name, href: `/${stream.slug}` });
         items.push({ name: subject.name });
@@ -116,7 +120,7 @@ export const getBreadcrumbs = async (type: 'stream' | 'subject' | 'note' | 'page
   }
 
   if (type === 'note') {
-    const note = await getNoteById(slugOrName);
+    const note = await getNoteById(slugOrId);
     if (note) {
       const stream = await getStreamBySlug(note.streamSlug || '');
       const subject = await getSubjectBySlug(note.subjectSlug || '');
@@ -129,7 +133,7 @@ export const getBreadcrumbs = async (type: 'stream' | 'subject' | 'note' | 'page
   }
   
   if (type === 'page') {
-    items.push({ name: slugOrName });
+    items.push({ name: slugOrId });
   }
   
   return Promise.resolve(items);
