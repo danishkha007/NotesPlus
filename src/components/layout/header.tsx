@@ -20,11 +20,43 @@ import { FormEvent } from "react";
 const user = null; // or { displayName: 'John Doe', email: 'john@example.com', role: 'admin' }
 
 const Logo = () => (
-  <Link href="/" className="flex items-center gap-2 text-primary">
-    <BookOpen className="h-7 w-7" />
-    <span className="font-headline text-2xl font-bold">NotesPlus Pro</span>
-  </Link>
-);
+    <Link href="/" className="flex items-center gap-2 text-primary">
+      <svg
+        className="h-8 w-8"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6 2H14L20 8V20C20 21.1046 19.1046 22 18 22H6C4.89543 22 4 21.1046 4 20V4C4 2.89543 4.89543 2 6 2Z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M14 2V8H20"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M9 14H15"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+         <path
+          d="M9 17H12"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+      <span className="font-headline text-2xl font-bold">NotesPlus Pro</span>
+    </Link>
+  );
 
 const SearchBar = () => {
   const router = useRouter();
