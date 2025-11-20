@@ -6,10 +6,10 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: {
-    default: 'NotesPlus Pro - Free Study Material for Students',
-    template: '%s | NotesPlus Pro',
+    default: 'NotesPlus - Free Study Material for Students',
+    template: '%s | NotesPlus',
   },
-  description: 'NotesPlus Pro offers free, high-quality study materials, notes, and resources for students across various streams like Engineering and Pharmacy. Boost your learning with our comprehensive and accessible educational content.',
+  description: 'NotesPlus offers free, high-quality study materials, notes, and resources for students across various streams like Engineering and Pharmacy. Boost your learning with our comprehensive and accessible educational content.',
   keywords: ['NotesPlus', 'free study material', 'student notes', 'engineering notes', 'pharmacy notes'],
 };
 

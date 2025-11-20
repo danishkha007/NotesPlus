@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Twitter, Facebook, Instagram, Linkedin } from "lucide-react";
 
 const Logo = () => (
-    <Link href="/" className="flex items-center gap-2 text-primary" aria-label="NotesPlus Pro Home">
+    <Link href="/" className="flex items-center gap-2 text-primary" aria-label="NotesPlus Home">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
@@ -54,7 +54,7 @@ export default function Footer() {
         </div>
         <div className="mt-8 pt-8 border-t border-muted flex flex-col md:flex-row items-center justify-between">
           <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} NotesPlus Pro. All rights reserved.
+            &copy; {new Date().getFullYear()} NotesPlus. All rights reserved.
           </p>
           <div className="flex gap-4 mt-4 md:mt-0">
             <Link href="#" aria-label="Twitter" className="text-muted-foreground hover:text-primary transition-colors"><Twitter className="h-5 w-5" /></Link>

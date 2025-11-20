@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 
 export const metadata = {
   title: "Admin Dashboard",
-  description: "Manage notes and content for NotesPlus Pro.",
+  description: "Manage notes and content for NotesPlus.",
 };
 
 export default async function AdminPage() {
@@ -16,7 +16,7 @@ export default async function AdminPage() {
     <div className="container mx-auto px-4 py-8 md:py-12">
       <h1 className="text-3xl md:text-4xl font-headline font-bold mb-2">Admin Dashboard</h1>
       <p className="text-lg text-muted-foreground mb-8">
-        Welcome, Admin. Here you can manage the content of NotesPlus Pro.
+        Welcome, Admin. Here you can manage the content of NotesPlus.
       </p>
 
       <Tabs defaultValue="add-note">

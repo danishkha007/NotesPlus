@@ -20,7 +20,7 @@ import { FormEvent } from "react";
 const user = null; // or { displayName: 'John Doe', email: 'john@example.com', role: 'admin' }
 
 const Logo = () => (
-    <Link href="/" className="flex items-center gap-2 text-primary" aria-label="NotesPlus Pro Home">
+    <Link href="/" className="flex items-center gap-2 text-primary" aria-label="NotesPlus Home">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
@@ -123,7 +123,9 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-card shadow-sm">
       <div className="container mx-auto px-4 flex h-16 items-center justify-between gap-4">
-        <Logo />
+        <div className="flex items-center gap-4">
+            <Logo />
+        </div>
         <div className="flex-1 flex justify-center px-4">
            <div className="hidden md:block w-full">
             <SearchBar />

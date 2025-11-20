@@ -20,7 +20,7 @@ export default function LoginPage() {
           <div className="flex justify-center items-center mb-4">
             <BookOpen className="h-8 w-8 text-primary" />
           </div>
-          <CardTitle className="font-headline text-2xl">Welcome to NotesPlus Pro</CardTitle>
+          <CardTitle className="font-headline text-2xl">Welcome to NotesPlus</CardTitle>
           <CardDescription>Sign in to download notes and more.</CardDescription>
         </CardHeader>
         <CardContent>
