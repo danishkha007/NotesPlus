@@ -5,6 +5,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getPopularNotes, getStreams } from '@/lib/data';
 import NoteCard from '@/components/note-card';
 import { placeholderImages } from '@/lib/placeholder-images';
+import { HeartPulse, FlaskConical, Cog } from 'lucide-react';
+import type { Stream } from '@/lib/types';
+import { cn } from '@/lib/utils';
+
+const streamIcons: Record<string, React.ReactNode> = {
+    'engineering': <Cog className="h-12 w-12 text-primary" />,
+    'pharmacy': <FlaskConical className="h-12 w-12 text-primary" />,
+    'medical': <HeartPulse className="h-12 w-12 text-primary" />,
+};
 
 export default async function Home() {
   const streams = await getStreams();
@@ -40,17 +49,25 @@ export default async function Home() {
 
       <section id="streams" className="w-full py-16 lg:py-24 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-12">
-            Explore by Stream
-          </h2>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-headline font-bold">
+              Explore by Stream
+            </h2>
+            <p className="mt-2 text-lg text-muted-foreground max-w-2xl mx-auto">
+              Find curated notes and materials for your specific field of study.
+            </p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {streams.map((stream) => (
-              <Link href={`/${stream.slug}`} key={stream.id}>
-                <Card className="h-full hover:shadow-lg hover:border-primary transition-all duration-300 transform hover:-translate-y-1">
-                  <CardHeader>
-                    <CardTitle className="font-headline">{stream.name}</CardTitle>
+              <Link href={`/${stream.slug}`} key={stream.id} className="group">
+                <Card className="h-full flex flex-col items-center text-center p-6 transition-all duration-300 transform hover:shadow-2xl hover:-translate-y-2 border-2 border-transparent hover:border-primary">
+                  <CardHeader className="p-0">
+                    <div className="mb-4 bg-primary/10 p-4 rounded-full inline-block">
+                        {streamIcons[stream.slug] || <Cog className="h-12 w-12 text-primary" />}
+                    </div>
+                    <CardTitle className="font-headline text-2xl">{stream.name}</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-0 mt-2 flex-grow">
                     <p className="text-muted-foreground">{stream.description}</p>
                   </CardContent>
                 </Card>
