@@ -1,3 +1,34 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-landing",
+      "description": "A group of students studying together in a modern library, with laptops and books.",
+      "imageUrl": "https://images.unsplash.com/photo-1695548053857-c070504389f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8c3R1ZGVudHMlMjBsaWJyYXJ5fGVufDB8fHx8MTc2MzU3MTA0NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "students library"
+    },
+    {
+      "id": "note-pdf",
+      "description": "An icon representing a PDF document.",
+      "imageUrl": "https://images.unsplash.com/photo-1750816204148-5d02aff367cb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxkb2N1bWVudCUyMGljb258ZW58MHx8fHwxNzYzNTg0NjIxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "document icon"
+    },
+    {
+      "id": "note-doc",
+      "description": "An icon representing a Word document.",
+      "imageUrl": "https://images.unsplash.com/photo-1594489915256-bc10b4c73283?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx0ZXh0JTIwZG9jdW1lbnR8ZW58MHx8fHwxNzYzNjQ1MTk1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "text document"
+    },
+    {
+      "id": "note-video",
+      "description": "An icon representing a video file.",
+      "imageUrl": "https://images.unsplash.com/photo-1611162616475-46b635cb6868?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwbGF5JTIwYnV0dG9ufGVufDB8fHx8MTc2MzU3OTM1N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "play button"
+    },
+    {
+      "id": "note-default",
+      "description": "A generic icon for a note.",
+      "imageUrl": "https://images.unsplash.com/photo-1620275765334-4ed948bb4502?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxub3RlYm9vayUyMHBhZ2V8ZW58MHx8fHwxNzYzNjYyMzEyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "notebook page"
+    }
+  ]
 }
