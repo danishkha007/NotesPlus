@@ -43,7 +43,7 @@ export default function Header() {
     const formData = new FormData(e.currentTarget);
     const query = formData.get("search") as string;
     if (query) {
-      router.push(`/search?q=${query}`);
+      router.push(`/search?q=${encodeURIComponent(query)}`);
     }
   };
 
@@ -56,25 +56,25 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
-        <div className="mr-4 flex">
+        <div className="mr-4 hidden md:flex">
           <Logo />
         </div>
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <form
-            onSubmit={handleSearch}
-            className="w-full max-w-sm flex items-center"
-          >
-            <div className="relative w-full">
+        <div className="flex flex-1 items-center justify-between gap-4 md:justify-end">
+          <div className="w-full flex-1 md:w-auto md:flex-none">
+            <form
+              onSubmit={handleSearch}
+              className="relative"
+            >
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
                 name="search"
                 type="search"
                 placeholder="Search notes..."
-                className="pl-10"
+                className="pl-10 w-full"
                 defaultValue={searchParams.get("q") || ""}
               />
-            </div>
-          </form>
+            </form>
+          </div>
           <nav className="flex items-center gap-2">
             {user ? (
                <DropdownMenu>
