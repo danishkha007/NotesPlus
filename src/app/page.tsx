@@ -39,7 +39,7 @@ export default async function Home() {
             Free Study Material for Students
           </h1>
           <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-primary-foreground/90">
-            Welcome to NotesPlus Pro. Your one-stop destination for high-quality, free study notes and resources.
+            Welcome to NotesPlus. Your one-stop destination for high-quality, free study notes and resources.
           </p>
           <Button asChild size="lg" className="mt-8 bg-accent text-accent-foreground hover:bg-accent/90">
             <Link href="#streams">Browse Notes</Link>

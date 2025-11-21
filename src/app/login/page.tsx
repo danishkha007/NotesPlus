@@ -1,8 +1,15 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookOpen } from "lucide-react";
 import Breadcrumb from "@/components/layout/breadcrumb";
 import { getBreadcrumbs } from "@/lib/data";
+import { useEffect, useState } from "react";
+import type { BreadcrumbItem } from "@/lib/types";
+import { useAuth, useUser } from "@/firebase";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
 
 const GoogleIcon = () => (
@@ -15,8 +22,37 @@ const GoogleIcon = () => (
 );
 
 
-export default async function LoginPage() {
-    const breadcrumbs = await getBreadcrumbs("page", "Login");
+export default function LoginPage() {
+    const [breadcrumbs, setBreadcrumbs] = useState<BreadcrumbItem[]>([]);
+    const auth = useAuth();
+    const user = useUser();
+    const router = useRouter();
+
+    useEffect(() => {
+        const fetchBreadcrumbs = async () => {
+            const items = await getBreadcrumbs("page", "Login");
+            setBreadcrumbs(items);
+        };
+        fetchBreadcrumbs();
+    }, []);
+
+    useEffect(() => {
+        if (user) {
+            router.push('/');
+        }
+    }, [user, router]);
+
+    const handleGoogleSignIn = async () => {
+        if (!auth) return;
+        const provider = new GoogleAuthProvider();
+        try {
+            await signInWithPopup(auth, provider);
+            router.push('/');
+        } catch (error) {
+            console.error("Error signing in with Google: ", error);
+        }
+    };
+
   return (
     <div className="container mx-auto px-4 py-8 md:py-12">
         <Breadcrumb items={breadcrumbs} className="mb-6" />
@@ -30,7 +66,7 @@ export default async function LoginPage() {
                 <CardDescription>Sign in to download notes and more.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                <Button className="w-full bg-white text-gray-700 hover:bg-gray-100 border border-gray-300">
+                <Button onClick={handleGoogleSignIn} className="w-full bg-white text-gray-700 hover:bg-gray-100 border border-gray-300">
                     <GoogleIcon />
                     Sign in with Google
                 </Button>
