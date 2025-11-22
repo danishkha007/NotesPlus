@@ -80,7 +80,7 @@ export default async function Home() {
       <section id="streams" className="w-full py-16 lg:py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-body font-bold italic tracking-tight">
+            <h2 className="text-4xl md:text-5xl font-body font-bold tracking-tight">
               <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 Explore by Stream
               </span>
