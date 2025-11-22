@@ -48,13 +48,16 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/80">
       <div className="container mx-auto flex h-16 items-center">
-        <div className="mr-4 flex">
+        <div className="mr-4 hidden md:flex">
           <Logo />
         </div>
-        <div className="flex flex-1 items-center justify-end gap-4">
-          <div className="flex-1" />
+        <div className="flex flex-1 items-center justify-end gap-2">
+           <div className="md:hidden">
+              <Logo />
+            </div>
+          <div className="w-full flex-1" />
           <div className="w-full max-w-sm">
             <form
               onSubmit={handleSearch}
