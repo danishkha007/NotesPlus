@@ -1,10 +1,20 @@
 import { notFound } from 'next/navigation';
-import { getNoteById, getBreadcrumbs } from '@/lib/data';
+import { getNoteById, getBreadcrumbs, getNotesBySubject, getSubjects, getStreams } from '@/lib/data';
 import Breadcrumb from '@/components/layout/breadcrumb';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Download, FileText, Film, FileType2 } from 'lucide-react';
 import type { Note } from '@/lib/types';
+import { searchNotes } from '@/lib/data';
+
+export async function generateStaticParams() {
+    const notes = await searchNotes(''); // hack to get all notes
+    return notes.map((note) => ({
+      streamSlug: note.streamSlug || '',
+      subjectSlug: note.subjectSlug || '',
+      noteId: note.id,
+    }));
+}
 
 type NotePageProps = {
   params: {

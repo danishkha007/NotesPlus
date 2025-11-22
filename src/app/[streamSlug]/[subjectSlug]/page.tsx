@@ -1,7 +1,22 @@
 import { notFound } from 'next/navigation';
-import { getSubjectBySlug, getNotesBySubject, getBreadcrumbs, getStreamBySlug } from '@/lib/data';
+import { getSubjectBySlug, getNotesBySubject, getBreadcrumbs, getStreamBySlug, getSubjects } from '@/lib/data';
 import NoteCard from '@/components/note-card';
 import Breadcrumb from '@/components/layout/breadcrumb';
+
+export async function generateStaticParams() {
+    const subjects = await getSubjects();
+    const params = await Promise.all(
+        subjects.map(async (subject) => {
+            const stream = await getStreamBySlug(subject.streamId);
+            return {
+                streamSlug: stream?.slug || '',
+                subjectSlug: subject.slug
+            }
+        })
+    );
+    return params.filter(p => p.streamSlug);
+}
+
 
 type SubjectPageProps = {
   params: {

@@ -1,9 +1,16 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { getStreamBySlug, getSubjectsByStream, getBreadcrumbs } from '@/lib/data';
+import { getStreamBySlug, getSubjectsByStream, getBreadcrumbs, getStreams } from '@/lib/data';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import Breadcrumb from '@/components/layout/breadcrumb';
 import { ArrowRight } from 'lucide-react';
+
+export async function generateStaticParams() {
+  const streams = await getStreams();
+  return streams.map((stream) => ({
+    streamSlug: stream.slug,
+  }));
+}
 
 type StreamPageProps = {
   params: {
