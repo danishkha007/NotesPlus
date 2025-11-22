@@ -80,7 +80,7 @@ export default async function Home() {
       <section id="streams" className="w-full py-16 lg:py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-headline font-extrabold tracking-tight">
+            <h2 className="text-4xl md:text-5xl font-body font-bold italic tracking-tight">
               <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 Explore by Stream
               </span>
@@ -92,7 +92,7 @@ export default async function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {streams.map((stream) => (
               <Link href={`/${stream.slug}`} key={stream.id} className="group">
-                <Card className="h-full flex flex-col items-center text-center p-6 transition-all duration-300 transform hover:shadow-2xl hover:-translate-y-2 hover:border-primary">
+                <Card className="h-full flex flex-col items-center text-center p-6 transition-all duration-300 transform hover:shadow-2xl hover:-translate-y-2 border hover:border-primary">
                   <CardHeader className="p-0 flex flex-col items-center">
                     <div className="mb-4 bg-primary/10 p-4 rounded-full flex items-center justify-center">
                         {streamIcons[stream.slug] || <Cog className="h-12 w-12 text-primary" />}
