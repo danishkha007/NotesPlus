@@ -49,11 +49,13 @@ export default async function Home() {
 
       <section id="streams" className="w-full py-16 lg:py-24 bg-background">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-headline font-bold">
-              Explore by Stream
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-headline font-extrabold tracking-tight">
+              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                Explore by Stream
+              </span>
             </h2>
-            <p className="mt-2 text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
               Find curated notes and materials for your specific field of study.
             </p>
           </div>
