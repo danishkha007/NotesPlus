@@ -48,7 +48,7 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/50 backdrop-blur-xl supports-[backdrop-filter]:bg-background/40">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/30 backdrop-blur-xl supports-[backdrop-filter]:bg-background/20">
       <div className="container mx-auto flex h-16 items-center">
         <div className="mr-4 hidden md:flex">
           <Logo />
