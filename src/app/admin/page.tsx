@@ -3,6 +3,7 @@ import { NoteForm } from "@/components/admin/note-form";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import Breadcrumb from "@/components/layout/breadcrumb";
+import { getSubjectsByStream } from "@/lib/data";
 
 export const metadata = {
   title: "Admin Dashboard",
@@ -11,7 +12,7 @@ export const metadata = {
 
 export default async function AdminPage() {
   const streams = await getStreams();
-  const allSubjects = await Promise.all(streams.map(stream => getSubjectsByStream(stream.id))).then(res => res.flat());
+  const allSubjects = await getSubjects();
   const breadcrumbs = await getBreadcrumbs("page", "Admin");
 
   return (

@@ -38,6 +38,10 @@ export const getStreamBySlug = async (slug: string): Promise<Stream | undefined>
   return Promise.resolve(streams.find((s) => s.slug === slug));
 };
 
+export const getSubjects = async (): Promise<Subject[]> => {
+  return Promise.resolve(subjects);
+}
+
 export const getSubjectsByStream = async (streamId: string): Promise<Subject[]> => {
   return Promise.resolve(subjects.filter((s) => s.streamId === streamId));
 };

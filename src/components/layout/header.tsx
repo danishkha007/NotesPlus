@@ -20,7 +20,7 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, Suspense } from "react";
 import { useAuth, useUser } from "@/firebase";
 import { signOut } from "firebase/auth";
 import Image from 'next/image';
@@ -39,13 +39,9 @@ const navLinks = [
   { href: '/faq', label: 'FAQ' },
 ];
 
-export default function Header() {
+function SearchForm({ isMobile, onSearch }: { isMobile: boolean, onSearch?: () => void }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const auth = useAuth();
-  const user = useUser();
-  const isMobile = useIsMobile();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,9 +49,33 @@ export default function Header() {
     const query = formData.get("search") as string;
     if (query) {
       router.push(`/search?q=${encodeURIComponent(query)}`);
-      if(isMobile) setMobileMenuOpen(false);
+      onSearch?.();
     }
   };
+
+  return (
+    <form
+      onSubmit={handleSearch}
+      className="relative"
+    >
+      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+      <Input
+        name="search"
+        type="search"
+        placeholder="Search notes..."
+        className="pl-10 w-full"
+        defaultValue={searchParams.get("q") || ""}
+      />
+    </form>
+  )
+}
+
+export default function Header() {
+  const router = useRouter();
+  const auth = useAuth();
+  const user = useUser();
+  const isMobile = useIsMobile();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleSignOut = async () => {
     if (!auth) return;
@@ -91,19 +111,9 @@ export default function Header() {
 
         <div className="flex flex-1 items-center justify-end gap-4">
           <div className="w-full max-w-xs hidden sm:block">
-            <form
-              onSubmit={handleSearch}
-              className="relative"
-            >
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <Input
-                name="search"
-                type="search"
-                placeholder="Search notes..."
-                className="pl-10 w-full"
-                defaultValue={searchParams.get("q") || ""}
-              />
-            </form>
+             <Suspense fallback={null}>
+                <SearchForm isMobile={false} />
+             </Suspense>
           </div>
           
           <div className="flex items-center gap-2">
@@ -160,10 +170,11 @@ export default function Header() {
                     </SheetClose>
                   </div>
                   <div className="mt-8">
-                    <form onSubmit={handleSearch} className="relative mb-6">
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                      <Input name="search" type="search" placeholder="Search notes..." className="pl-10 w-full" defaultValue={searchParams.get("q") || ""} />
-                    </form>
+                    <div className="relative mb-6">
+                      <Suspense fallback={null}>
+                        <SearchForm isMobile={true} onSearch={() => setMobileMenuOpen(false)} />
+                      </Suspense>
+                    </div>
                     <NavMenu isMobileSheet />
                     {!user && (
                       <Button asChild className="w-full mt-8">
