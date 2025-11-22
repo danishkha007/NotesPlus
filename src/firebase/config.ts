@@ -5,7 +5,15 @@ import { initializeApp, getApp, getApps } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
-const firebaseConfig = {"apiKey":"FIREBASE_API_KEY","authDomain":"FIREBASE_AUTH_DOMAIN","projectId":"FIREBASE_PROJECT_ID","storageBucket":"FIREBASE_STORAGE_BUCKET","messagingSenderId":"FIREBASE_MESSAGING_SENDER_ID","appId":"FIREBASE_APP_ID","measurementId":"FIREBASE_MEASUREMENT_ID"};
+// const firebaseConfig = {"apiKey":"FIREBASE_API_KEY","authDomain":"FIREBASE_AUTH_DOMAIN","projectId":"FIREBASE_PROJECT_ID","storageBucket":"FIREBASE_STORAGE_BUCKET","messagingSenderId":"FIREBASE_MESSAGING_SENDER_ID","appId":"FIREBASE_APP_ID","measurementId":"FIREBASE_MEASUREMENT_ID"};
+const firebaseConfig = {
+  apiKey: "AIzaSyBi6pZoU7yzmMyaZcexVNrQNZ0U2mupCiw",
+  authDomain: "notesplus-789da.firebaseapp.com",
+  projectId: "notesplus-789da",
+  storageBucket: "notesplus-789da.firebasestorage.app",
+  messagingSenderId: "776574059980",
+  appId: "1:776574059980:web:6797821a10f60778594969"
+};
 
 let app: ReturnType<typeof initializeApp>;
 let auth: ReturnType<typeof getAuth>;
