@@ -48,32 +48,32 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/80">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/50 backdrop-blur-xl supports-[backdrop-filter]:bg-background/40">
       <div className="container mx-auto flex h-16 items-center">
         <div className="mr-4 hidden md:flex">
           <Logo />
         </div>
-        <div className="flex flex-1 items-center justify-end gap-2">
+        <div className="flex flex-1 items-center justify-between gap-2">
            <div className="md:hidden">
               <Logo />
             </div>
-          <div className="w-full flex-1" />
-          <div className="w-full max-w-sm">
-            <form
-              onSubmit={handleSearch}
-              className="relative"
-            >
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <Input
-                name="search"
-                type="search"
-                placeholder="Search notes..."
-                className="pl-10 w-full"
-                defaultValue={searchParams.get("q") || ""}
-              />
-            </form>
+          <div className="flex flex-1 items-center justify-center">
+            <div className="w-full max-w-sm">
+              <form
+                onSubmit={handleSearch}
+                className="relative"
+              >
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input
+                  name="search"
+                  type="search"
+                  placeholder="Search notes..."
+                  className="pl-10 w-full"
+                  defaultValue={searchParams.get("q") || ""}
+                />
+              </form>
+            </div>
           </div>
-           <div className="flex-1" />
           <nav className="flex items-center gap-2">
             {user ? (
                <DropdownMenu>
