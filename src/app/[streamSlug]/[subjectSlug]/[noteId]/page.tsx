@@ -1,14 +1,18 @@
 import { notFound } from 'next/navigation';
-import { getNoteById, getBreadcrumbs, getNotesBySubject, getSubjects, getStreams } from '@/lib/data';
+import { getNoteById, getBreadcrumbs, searchNotes } from '@/lib/data';
 import Breadcrumb from '@/components/layout/breadcrumb';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Download, FileText, Film, FileType2 } from 'lucide-react';
 import type { Note } from '@/lib/types';
-import { searchNotes } from '@/lib/data';
+import Recommendations from '@/components/notes/recommendations';
+import { getPopularNotes } from '@/lib/data';
+
 
 export async function generateStaticParams() {
-    const notes = await searchNotes(''); // hack to get all notes
+    // This is a temporary hack to get all notes to generate static paths.
+    // In a real application, you might source this from a more direct query.
+    const notes = await searchNotes(' ');
     return notes.map((note) => ({
       streamSlug: note.streamSlug || '',
       subjectSlug: note.subjectSlug || '',
@@ -19,6 +23,8 @@ export async function generateStaticParams() {
 type NotePageProps = {
   params: {
     noteId: string;
+    streamSlug: string;
+    subjectSlug: string;
   };
 };
 
@@ -54,12 +60,13 @@ export default async function NotePage({ params }: NotePageProps) {
   }
 
   const breadcrumbs = await getBreadcrumbs('note', params.noteId);
+  const popularNotes = await getPopularNotes();
 
   return (
     <div className="container mx-auto px-4 py-8 md:py-12">
       <Breadcrumb items={breadcrumbs} className="mb-6" />
       
-      <div className="bg-card p-6 md:p-8 rounded-lg shadow-sm">
+      <div className="bg-card p-6 md:p-8 rounded-lg shadow-sm mb-12">
         <div className="grid md:grid-cols-3 gap-8">
           <div className="md:col-span-2">
             <Badge variant="secondary" className="mb-2">{note.category}</Badge>
@@ -99,7 +106,7 @@ export default async function NotePage({ params }: NotePageProps) {
           </div>
         </div>
       </div>
-      
+      <Recommendations currentNote={note} popularNotes={popularNotes} />
     </div>
   );
 }

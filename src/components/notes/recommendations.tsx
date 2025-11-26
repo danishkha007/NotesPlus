@@ -5,7 +5,7 @@ import type { Note } from "@/lib/types";
 import { aiPoweredRecommendations } from "@/ai/flows/ai-powered-recommendations";
 import NoteCard from "@/components/note-card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getNoteById } from "@/lib/data";
+import { getNoteById, searchNotes } from "@/lib/data";
 
 type RecommendationsProps = {
   currentNote: Note;
@@ -32,19 +32,10 @@ export default function Recommendations({ currentNote, popularNotes }: Recommend
         if (result.recommendedNotes && result.recommendedNotes.length > 0) {
           // This is a mock-up of fetching full note details from a list of titles.
           // In a real app, you'd likely have a more efficient way to do this.
-          const recommendedNoteDetails = (await Promise.all(
-            result.recommendedNotes.map(title => 
-              // A real implementation would query by title, here we simulate by finding in all notes
-              getNoteById(
-                // This is a hacky way to find a note by title for the mock data
-                // In a real DB, you'd query: `db.notes.where('title', '==', title).get()`
-                ['n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8', 'n9'].find(id => {
-                  const note = popularNotes.find(p => p.id === id) || currentNote.id === id ? currentNote : null;
-                  return note?.title === title
-                }) || ''
-              )
-            )
-          )).filter((note): note is Note => note !== undefined);
+          const allNotes = await searchNotes(' '); // Hack to get all notes
+          const recommendedNoteDetails = result.recommendedNotes.map(title => 
+            allNotes.find(note => note.title === title)
+          ).filter((note): note is Note => note !== undefined && note.id !== currentNote.id);
           
           setRecommendations(recommendedNoteDetails);
         } else {

@@ -54,6 +54,10 @@ export const getSubjectBySlug = async (slug: string): Promise<Subject | undefine
   return Promise.resolve(subjects.find((s) => s.slug === slug));
 };
 
+export const getNotes = async (): Promise<Note[]> => {
+    return Promise.resolve(notes);
+};
+
 export const getNotesBySubject = async (subjectId: string): Promise<Note[]> => {
   return Promise.resolve(notes.filter((n) => n.subjectId === subjectId));
 };
@@ -81,25 +85,33 @@ export const getPopularNotes = async (): Promise<Note[]> => {
 };
 
 export const searchNotes = async (query: string): Promise<Note[]> => {
-  const lowerCaseQuery = query.toLowerCase();
-  if (!lowerCaseQuery) return [];
+    const lowerCaseQuery = query.toLowerCase();
+    
+    // Return all notes if query is empty or just whitespace
+    // This is useful for generateStaticParams to get all possible paths
+    if (lowerCaseQuery.trim() === '') {
+        const allNotes = await getNotes();
+        const detailedNotes = await Promise.all(allNotes.map(n => getNoteById(n.id)));
+        return Promise.resolve(detailedNotes.filter((n): n is Note => n !== undefined));
+    }
 
-  const results = notes.filter(note => {
-    const stream = streams.find(s => s.id === note.streamId);
-    const subject = subjects.find(s => s.id === note.subjectId);
+    const results = notes.filter(note => {
+        const stream = streams.find(s => s.id === note.streamId);
+        const subject = subjects.find(s => s.id === note.subjectId);
 
-    return (
-      note.title.toLowerCase().includes(lowerCaseQuery) ||
-      note.description.toLowerCase().includes(lowerCaseQuery) ||
-      (stream && stream.name.toLowerCase().includes(lowerCaseQuery)) ||
-      (subject && subject.name.toLowerCase().includes(lowerCaseQuery)) ||
-      note.tags.some(tag => tag.toLowerCase().includes(lowerCaseQuery))
-    );
-  });
-  
-  const detailedNotes = await Promise.all(results.map(n => getNoteById(n.id)));
-  return Promise.resolve(detailedNotes.filter((n): n is Note => n !== undefined));
+        return (
+        note.title.toLowerCase().includes(lowerCaseQuery) ||
+        note.description.toLowerCase().includes(lowerCaseQuery) ||
+        (stream && stream.name.toLowerCase().includes(lowerCaseQuery)) ||
+        (subject && subject.name.toLowerCase().includes(lowerCaseQuery)) ||
+        note.tags.some(tag => tag.toLowerCase().includes(lowerCaseQuery))
+        );
+    });
+    
+    const detailedNotes = await Promise.all(results.map(n => getNoteById(n.id)));
+    return Promise.resolve(detailedNotes.filter((n): n is Note => n !== undefined));
 };
+
 
 export const getBreadcrumbs = async (type: 'stream' | 'subject' | 'note' | 'page', slugOrId: string): Promise<BreadcrumbItem[]> => {
   const home: BreadcrumbItem = { name: 'Home', href: '/' };
